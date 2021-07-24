@@ -54,7 +54,7 @@ const getMe = async (mbid) => {
   previewFile(result.images[0].image);
 };
 
-let interval = 20000; //  = 2s
+let interval = 15000; //  = 2s
 let increment = 1;
 
 function getRandomInt(max) {
