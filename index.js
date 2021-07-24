@@ -41,7 +41,7 @@ function getAverageRGB(imgEl) {
     ")";
 }
 
-const getMe = async (mbid) => {
+const getAlbumArtCovers = async (mbid) => {
   var url = `https://coverartarchive.org/release/${mbid}`;
 
   let response = await fetch(url, {
@@ -49,9 +49,13 @@ const getMe = async (mbid) => {
     headers: { accept: "application/json" },
   });
 
-  let result = await response.json();
-
-  previewFile(result.images[0].image);
+  console.log("what is my response", response);
+  if (response.status === 400 || response.status === 404) {
+    return;
+  } else {
+    let result = await response.json();
+    previewFile(result.images[0].image);
+  }
 };
 
 let interval = 15000; //  = 2s
@@ -93,17 +97,22 @@ const getArtistGenres = async () => {
 
   let final = result.releases.map((i) => i.id);
 
-  final.forEach(async (id) => {
-    var runner = setTimeout(function () {
-      // Do your stuff.
-      getMe(id);
+  let i = 1; //  set your counter to 1
 
-      clearTimeout(runner);
-    }, interval * increment);
+  function myLoop() {
+    //  create a loop function
+    setTimeout(function () {
+      //  call a 3s setTimeout when the loop is called
+      getAlbumArtCovers(final[i]);
+      i++; //  increment the counter
+      if (i < final.length) {
+        //  if the counter < 10, call the loop function
+        myLoop(); //  ..  again which will trigger another
+      } //  ..  setTimeout()
+    }, 5000);
+  }
 
-    increment = increment + 1;
-  });
-  getArtistGenres();
+  myLoop(); //  start the loop
 };
 
 getArtistGenres();
