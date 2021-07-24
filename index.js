@@ -71,7 +71,6 @@ const genres = [
   "pop rap",
   "punk rock",
   "r&b",
-  "reggaeton",
   "west coast hip hop",
   "classic rock",
   "deep house",
