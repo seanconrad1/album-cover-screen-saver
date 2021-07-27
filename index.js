@@ -1,3 +1,5 @@
+// TODO create a queue of successful pinged items
+
 var rgb = getAverageRGB(document.getElementById("i"));
 let body = document.createElement("body");
 
@@ -69,7 +71,6 @@ const genres = [
   "gangsta rap",
   "hip hop",
   "indie",
-  "latin pop",
   "pop punk",
   "pop",
   "pop rap",
@@ -94,7 +95,7 @@ const getArtistGenres = async () => {
   // offset;
 
   let url = `https://musicbrainz.org/ws/2/release/?query=tag:${genre}%20AND%20country:US&fmt=json&limit=${limit}&offset=${randomNum}`;
-
+  console.log(url);
   console.log(url);
   let response = await fetch(url, { method: "GET" });
 
