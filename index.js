@@ -83,6 +83,11 @@ const genres = [
 ];
 const limit = 5;
 
+// Promise for a delay in milliseconds
+function delay(time = 5000) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 const getArtistGenres = async () => {
   let genre = encodeURI(genres[getRandomInt(genres.length)]);
   let randomNum = getRandomInt(1000);
@@ -102,14 +107,14 @@ const getArtistGenres = async () => {
   function myLoop() {
     //  create a loop function
     setTimeout(function () {
-      //  call a 3s setTimeout when the loop is called
       getAlbumArtCovers(final[i]);
-      i++; //  increment the counter
+      i++;
       if (i < final.length) {
-        //  if the counter < 10, call the loop function
-        myLoop(); //  ..  again which will trigger another
-      } //  ..  setTimeout()
-    }, 5000);
+        myLoop();
+      } else {
+        getArtistGenres();
+      }
+    }, 2000);
   }
 
   myLoop(); //  start the loop
