@@ -25,22 +25,48 @@ async function previewFile(url) {
 function getAverageRGB(imgEl) {
   console.log(imgEl);
 
-  const val = document.getElementById("i");
+  let vibrant;
 
-  imgEl.id = "i";
+  var v = new Vibrant(imgEl, {});
+  v.getPalette((err, palette) => {
+    console.log();
 
-  val.parentNode.replaceChild(imgEl, val);
+    const val = document.getElementById("i");
 
-  const colorThief = new ColorThief();
+    imgEl.id = "i";
 
-  document.body.style.backgroundColor =
-    "rgb(" +
-    colorThief.getColor(imgEl)[0] +
-    "," +
-    colorThief.getColor(imgEl)[1] +
-    "," +
-    colorThief.getColor(imgEl)[2] +
-    ")";
+    val.parentNode.replaceChild(imgEl, val);
+
+    const colorThief = new ColorThief();
+
+    document.body.style.backgroundColor =
+      "rgb(" +
+      palette.Vibrant._rgb[0] +
+      "," +
+      palette.Vibrant._rgb[1] +
+      "," +
+      palette.Vibrant._rgb[2] +
+      ")";
+  });
+
+  // console.log(vibrant);
+
+  // const val = document.getElementById("i");
+
+  // imgEl.id = "i";
+
+  // val.parentNode.replaceChild(imgEl, val);
+
+  // const colorThief = new ColorThief();
+
+  // document.body.style.backgroundColor =
+  //   "rgb(" +
+  //   colorThief.getColor(imgEl)[0] +
+  //   "," +
+  //   colorThief.getColor(imgEl)[1] +
+  //   "," +
+  //   colorThief.getColor(imgEl)[2] +
+  //   ")";
 }
 
 const getAlbumArtCovers = async (mbid) => {
